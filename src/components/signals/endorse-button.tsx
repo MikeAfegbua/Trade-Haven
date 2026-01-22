@@ -41,14 +41,14 @@ export function EndorseButton({ signalId, signalStatus, onEndorse, variant = 'co
         if (hasEndorsed || !isActive) return;
 
         setIsEndorsing(true);
-        
+
         await new Promise(resolve => setTimeout(resolve, 800));
-        
+
         setHasEndorsed(true);
         setIsEndorsing(false);
         setShowFeedback('success');
         setTimeout(() => setShowFeedback(null), 3000);
-        
+
         onEndorse?.();
     };
 

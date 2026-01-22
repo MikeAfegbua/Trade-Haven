@@ -1,14 +1,16 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { Moon, Sun, TrendingUp } from 'lucide-react';
+import { Moon, Sun, TrendingUp, User } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { WalletButton } from '@/components/wallet';
+import { useWalletStore } from '@/store/wallet';
 
 export function Header() {
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const { isConnected } = useWalletStore();
 
     useEffect(() => {
         setMounted(true);
@@ -37,6 +39,15 @@ export function Header() {
                     >
                         Leaderboard
                     </Link>
+                    {mounted && isConnected && (
+                        <Link
+                            href="/my-signals"
+                            className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            <User className="h-4 w-4" />
+                            My Signals
+                        </Link>
+                    )}
                     <a
                         href="https://app.ethos.network/"
                         target="_blank"
