@@ -27,28 +27,28 @@ export function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
     };
 
     return (
-        <div className="fixed mt-100 inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
-            <div className="relative z-10 mx-auto w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl">
+            <div className="relative z-10 mx-auto my-8 w-full max-w-md rounded-2xl border border-border bg-card p-4 shadow-xl sm:my-0 sm:p-6">
                 <button
                     onClick={onClose}
-                    className="absolute right-4 top-4 text-muted-foreground transition-colors hover:text-foreground"
+                    className="absolute right-3 top-3 text-muted-foreground transition-colors hover:text-foreground sm:right-4 sm:top-4"
                 >
                     <X className="h-5 w-5" />
                 </button>
 
-                <div className="mb-6 text-center">
-                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-ethos-teal/10">
-                        <Wallet className="h-6 w-6 text-ethos-teal" />
+                <div className="mb-4 text-center sm:mb-6">
+                    <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-ethos-teal/10 sm:h-12 sm:w-12">
+                        <Wallet className="h-5 w-5 text-ethos-teal sm:h-6 sm:w-6" />
                     </div>
-                    <h2 className="text-xl font-bold">Connect Wallet</h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <h2 className="text-lg font-bold sm:text-xl">Connect Wallet</h2>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
                         Select a demo wallet to simulate connection
                     </p>
                 </div>
 
-                <div className="space-y-2 overflow-y-auto max-h-70">
+                <div className="space-y-2 overflow-y-auto max-h-[50vh] sm:max-h-70">
                     {AVAILABLE_WALLETS.map((wallet) => {
                         const isVerified = wallet.ethosScore >= MIN_ETHOS_SCORE_VERIFIED;
 

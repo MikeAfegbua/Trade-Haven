@@ -143,15 +143,15 @@ export function SignalCard({ signal, onEndorse, compact = false }: SignalCardPro
                     <p className="mb-3 text-sm text-muted-foreground line-clamp-2">{signal.reasoning}</p>
                 )}
 
-                <div className="flex items-center justify-between border-t border-border pt-3">
-                    <div className="flex items-center gap-3">
+                <div className="flex flex-col gap-3 border-t border-border pt-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                         {signal.endorsements.length > 0 && (
                             <div className="flex items-center gap-1">
                                 <div className="flex -space-x-2">
                                     {signal.endorsements.slice(0, 3).map((e) => (
                                         <div
                                             key={e.id}
-                                            className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-card bg-secondary text-xs font-bold"
+                                            className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-card bg-secondary text-xs font-bold sm:h-6 sm:w-6"
                                             title={`${e.endorser.username || formatAddress(e.endorser.address)} (${e.endorser.ethosScore})`}
                                         >
                                             {e.endorser.username?.[0] || '?'}

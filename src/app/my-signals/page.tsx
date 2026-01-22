@@ -48,46 +48,46 @@ export default function MySignalsPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="mb-8 rounded-xl border border-border bg-card p-6">
+            <div className="mb-8 rounded-xl border border-border bg-card p-4 sm:p-6">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-4">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ethos-teal/20 text-2xl font-bold text-ethos-teal">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-ethos-teal/20 text-xl font-bold text-ethos-teal sm:h-16 sm:w-16 sm:text-2xl">
                             {username?.charAt(0).toUpperCase() || '?'}
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold">@{username}</h1>
-                            <p className="font-mono text-sm text-muted-foreground">
+                            <h1 className="text-xl font-bold sm:text-2xl">@{username}</h1>
+                            <p className="font-mono text-xs text-muted-foreground sm:text-sm">
                                 {address?.slice(0, 6)}...{address?.slice(-4)}
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex gap-6">
+                    <div className="grid grid-cols-4 gap-2 sm:flex sm:gap-6">
                         <div className="text-center">
-                            <p className="text-2xl font-bold text-ethos-teal">{ethosScore?.toLocaleString()}</p>
+                            <p className="text-lg font-bold text-ethos-teal sm:text-2xl">{ethosScore?.toLocaleString()}</p>
                             <p className="text-xs text-muted-foreground">Ethos Score</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-2xl font-bold">{traderScore?.toFixed(1)}</p>
+                            <p className="text-lg font-bold sm:text-2xl">{traderScore?.toFixed(1)}</p>
                             <p className="text-xs text-muted-foreground">Trader Score</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-2xl font-bold text-green-500">{winRate}%</p>
+                            <p className="text-lg font-bold text-green-500 sm:text-2xl">{winRate}%</p>
                             <p className="text-xs text-muted-foreground">Win Rate</p>
                         </div>
                         <div className="text-center">
-                            <p className="text-2xl font-bold">{totalSignals}</p>
+                            <p className="text-lg font-bold sm:text-2xl">{totalSignals}</p>
                             <p className="text-xs text-muted-foreground">Total Signals</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Your Signals ({mySignals.length})</h2>
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <h2 className="text-lg font-semibold sm:text-xl">Your Signals ({mySignals.length})</h2>
                 <button
                     onClick={() => setIsCreateModalOpen(true)}
-                    className="flex items-center gap-2 rounded-lg bg-ethos-teal px-4 py-2 font-medium text-black transition-colors hover:bg-ethos-teal/90"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-ethos-teal px-4 py-2 font-medium text-black transition-colors hover:bg-ethos-teal/90 sm:w-auto"
                 >
                     <Plus className="h-4 w-4" />
                     Post Signal
@@ -114,7 +114,7 @@ export default function MySignalsPage() {
                     </button>
                 </div>
             ) : (
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {mySignals.map((signal) => (
                         <SignalCard key={signal.id} signal={signal} />
                     ))}

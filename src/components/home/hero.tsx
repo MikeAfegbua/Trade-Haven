@@ -61,10 +61,10 @@ export function Hero() {
                         </p>
                     </span>
 
-                    <div className="mb-8 flex items-center justify-center gap-6">
+                    <div className="mb-8 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                         {stats.map((stat) => (
-                            <div key={stat.label} className="text-center">
-                                <p className="font-mono text-2xl font-bold text-ethos-teal">{stat.value}</p>
+                            <div key={stat.label} className="text-center min-w-[80px]">
+                                <p className="font-mono text-xl font-bold text-ethos-teal sm:text-2xl">{stat.value}</p>
                                 <p className="text-xs text-muted-foreground">{stat.label}</p>
                             </div>
                         ))}
@@ -93,7 +93,7 @@ export function Hero() {
                     </a>
                 </div>
 
-                <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <div
                             key={feature.title}

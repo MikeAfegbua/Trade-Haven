@@ -94,107 +94,107 @@ export default function SignalDetailPage() {
 
             <div className="grid gap-8 lg:grid-cols-3">
                 <div className="lg:col-span-2">
-                    <div className="rounded-2xl border border-border bg-card p-6">
-                        <div className="mb-6 flex items-start justify-between">
-                            <div className="flex items-center gap-4">
+                    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
+                        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                            <div className="flex items-center gap-3 sm:gap-4">
                                 <div className="relative">
-                                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-2xl font-bold">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-xl font-bold sm:h-14 sm:w-14 sm:text-2xl">
                                         {signal.author.username?.[0] || '?'}
                                     </div>
                                     {signal.author.traderScore >= 80 && (
                                         <div className="absolute -bottom-1 -right-1 rounded-full bg-ethos-teal p-1">
-                                            <Flame className="h-4 w-4 text-white" />
+                                            <Flame className="h-3 w-3 text-white sm:h-4 sm:w-4" />
                                         </div>
                                     )}
                                 </div>
                                 <div>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-xl font-bold">
+                                        <span className="text-lg font-bold sm:text-xl">
                                             {signal.author.username || formatAddress(signal.author.address)}
                                         </span>
                                         {signal.isVerified ? (
-                                            <CheckCircle className="h-5 w-5 text-ethos-teal" />
+                                            <CheckCircle className="h-4 w-4 text-ethos-teal sm:h-5 sm:w-5" />
                                         ) : (
-                                            <AlertTriangle className="h-5 w-5 text-ethos-yellow" />
+                                            <AlertTriangle className="h-4 w-4 text-ethos-yellow sm:h-5 sm:w-5" />
                                         )}
                                     </div>
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                                         <EthosScoreBadge
                                             score={signal.author.ethosScore}
                                             address={signal.author.address}
                                             showLabel
                                         />
-                                        <span className="text-sm text-muted-foreground">
+                                        <span className="text-xs text-muted-foreground sm:text-sm">
                                             {signal.author.winRate.toFixed(0)}% win rate
                                         </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="text-right">
+                            <div className="flex items-center justify-between sm:flex-col sm:items-end sm:text-right">
                                 <div
                                     className={cn(
-                                        'inline-flex items-center gap-2 rounded-full px-4 py-2 text-lg font-bold',
+                                        'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-base font-bold sm:gap-2 sm:px-4 sm:py-2 sm:text-lg',
                                         isLong ? 'bg-ethos-green/10 text-ethos-green' : 'bg-ethos-red/10 text-ethos-red'
                                     )}
                                 >
-                                    {isLong ? <TrendingUp className="h-5 w-5" /> : <TrendingDown className="h-5 w-5" />}
+                                    {isLong ? <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5" /> : <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5" />}
                                     {signal.direction.toUpperCase()} {signal.token}
                                 </div>
-                                <p className="mt-1 text-sm text-muted-foreground">
+                                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
                                     {formatTimestamp(signal.timestamp)}
                                 </p>
                             </div>
                         </div>
 
-                        <div className="mb-6 grid grid-cols-4 gap-4">
-                            <div className="rounded-xl bg-secondary p-4">
-                                <p className="mb-1 text-sm text-muted-foreground">Entry</p>
-                                <p className="font-mono text-xl font-bold">${signal.entry.toLocaleString()}</p>
+                        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+                            <div className="rounded-xl bg-secondary p-3 sm:p-4">
+                                <p className="mb-1 text-xs text-muted-foreground sm:text-sm">Entry</p>
+                                <p className="font-mono text-lg font-bold sm:text-xl">${signal.entry.toLocaleString()}</p>
                             </div>
-                            <div className="rounded-xl bg-secondary p-4">
+                            <div className="rounded-xl bg-secondary p-3 sm:p-4">
                                 <div className="mb-1 flex items-center gap-1">
-                                    <Target className="h-4 w-4 text-ethos-green" />
-                                    <p className="text-sm text-muted-foreground">Target</p>
+                                    <Target className="h-3 w-3 text-ethos-green sm:h-4 sm:w-4" />
+                                    <p className="text-xs text-muted-foreground sm:text-sm">Target</p>
                                 </div>
-                                <p className="font-mono text-xl font-bold text-ethos-green">
+                                <p className="font-mono text-lg font-bold text-ethos-green sm:text-xl">
                                     ${signal.target.toLocaleString()}
                                 </p>
                             </div>
                             {signal.stopLoss && (
-                                <div className="rounded-xl bg-secondary p-4">
+                                <div className="rounded-xl bg-secondary p-3 sm:p-4">
                                     <div className="mb-1 flex items-center gap-1">
-                                        <ShieldAlert className="h-4 w-4 text-ethos-red" />
-                                        <p className="text-sm text-muted-foreground">Stop Loss</p>
+                                        <ShieldAlert className="h-3 w-3 text-ethos-red sm:h-4 sm:w-4" />
+                                        <p className="text-xs text-muted-foreground sm:text-sm">Stop Loss</p>
                                     </div>
-                                    <p className="font-mono text-xl font-bold text-ethos-red">
+                                    <p className="font-mono text-lg font-bold text-ethos-red sm:text-xl">
                                         ${signal.stopLoss.toLocaleString()}
                                     </p>
                                 </div>
                             )}
-                            <div className="rounded-xl bg-secondary p-4">
+                            <div className="rounded-xl bg-secondary p-3 sm:p-4">
                                 <div className="mb-1 flex items-center gap-1">
-                                    <Clock className="h-4 w-4" />
-                                    <p className="text-sm text-muted-foreground">Time Left</p>
+                                    <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+                                    <p className="text-xs text-muted-foreground sm:text-sm">Time Left</p>
                                 </div>
-                                <p className="font-mono text-xl font-bold">
+                                <p className="font-mono text-lg font-bold sm:text-xl">
                                     {signal.status === 'active' ? `${hoursRemaining}h` : signal.status}
                                 </p>
                             </div>
                         </div>
 
                         {signal.currentPrice && signal.status === 'active' && (
-                            <div className="mb-6 rounded-xl border border-ethos-teal/20 bg-ethos-teal/5 p-4">
-                                <div className="flex items-center justify-between">
+                            <div className="mb-6 rounded-xl border border-ethos-teal/20 bg-ethos-teal/5 p-3 sm:p-4">
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Current Price</p>
-                                        <p className="font-mono text-2xl font-bold">${signal.currentPrice.toLocaleString()}</p>
+                                        <p className="text-xs text-muted-foreground sm:text-sm">Current Price</p>
+                                        <p className="font-mono text-xl font-bold sm:text-2xl">${signal.currentPrice.toLocaleString()}</p>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-sm text-muted-foreground">Unrealized P&L</p>
+                                    <div className="sm:text-right">
+                                        <p className="text-xs text-muted-foreground sm:text-sm">Unrealized P&L</p>
                                         <p
                                             className={cn(
-                                                'font-mono text-2xl font-bold',
+                                                'font-mono text-xl font-bold sm:text-2xl',
                                                 currentPnl >= 0 ? 'text-ethos-green' : 'text-ethos-red'
                                             )}
                                         >
@@ -226,31 +226,31 @@ export default function SignalDetailPage() {
                             <p className="text-muted-foreground">{signal.reasoning}</p>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 rounded-xl bg-secondary p-4">
+                        <div className="grid grid-cols-1 gap-3 rounded-xl bg-secondary p-3 sm:grid-cols-3 sm:gap-4 sm:p-4">
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-ethos-green">+{potentialPnl.toFixed(1)}%</p>
-                                <p className="text-sm text-muted-foreground">Potential Gain</p>
+                                <p className="text-xl font-bold text-ethos-green sm:text-2xl">+{potentialPnl.toFixed(1)}%</p>
+                                <p className="text-xs text-muted-foreground sm:text-sm">Potential Gain</p>
                             </div>
                             {risk > 0 && (
                                 <div className="text-center">
-                                    <p className="text-2xl font-bold text-ethos-red">-{risk.toFixed(1)}%</p>
-                                    <p className="text-sm text-muted-foreground">Max Risk</p>
+                                    <p className="text-xl font-bold text-ethos-red sm:text-2xl">-{risk.toFixed(1)}%</p>
+                                    <p className="text-xs text-muted-foreground sm:text-sm">Max Risk</p>
                                 </div>
                             )}
                             {risk > 0 && (
                                 <div className="text-center">
-                                    <p className="text-2xl font-bold">{(potentialPnl / risk).toFixed(2)}</p>
-                                    <p className="text-sm text-muted-foreground">Risk/Reward</p>
+                                    <p className="text-xl font-bold sm:text-2xl">{(potentialPnl / risk).toFixed(2)}</p>
+                                    <p className="text-xs text-muted-foreground sm:text-sm">Risk/Reward</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
 
-                <div className="space-y-6">
-                    <div className="rounded-2xl border border-border bg-card p-6">
-                        <h3 className="mb-4 flex items-center gap-2 font-semibold">
-                            <Award className="h-5 w-5 text-ethos-teal" />
+                <div className="space-y-4 sm:space-y-6">
+                    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
+                        <h3 className="mb-3 flex items-center gap-2 font-semibold sm:mb-4">
+                            <Award className="h-4 w-4 text-ethos-teal sm:h-5 sm:w-5" />
                             Endorsements ({signal.endorsements.length})
                         </h3>
 
@@ -302,9 +302,9 @@ export default function SignalDetailPage() {
                         </div>
                     </div>
 
-                    <div className="rounded-2xl border border-border bg-card p-6">
-                        <h3 className="mb-4 flex items-center gap-2 font-semibold">
-                            <BarChart3 className="h-5 w-5 text-ethos-teal" />
+                    <div className="rounded-2xl border border-border bg-card p-4 sm:p-6">
+                        <h3 className="mb-3 flex items-center gap-2 font-semibold sm:mb-4">
+                            <BarChart3 className="h-4 w-4 text-ethos-teal sm:h-5 sm:w-5" />
                             Trader Stats
                         </h3>
 

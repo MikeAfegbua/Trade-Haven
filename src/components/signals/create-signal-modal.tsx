@@ -70,12 +70,12 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center sm:p-6">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
-            <div className="relative z-10 w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl">
-                <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-xl font-bold">Post Trading Signal</h2>
+            <div className="relative z-10 my-8 w-full max-w-lg rounded-2xl border border-border bg-card p-4 shadow-2xl sm:my-0 sm:p-6">
+                <div className="mb-4 flex items-center justify-between sm:mb-6">
+                    <h2 className="text-lg font-bold sm:text-xl">Post Trading Signal</h2>
                     <button onClick={onClose} className="rounded-lg p-2 transition-colors hover:bg-secondary">
                         <X className="h-5 w-5" />
                     </button>
@@ -170,7 +170,7 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                             </div>
                         </div>
 
-                        <div className="mb-4 grid grid-cols-3 gap-3">
+                        <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                             <div>
                                 <label className="mb-2 flex items-center gap-1 text-sm font-medium">
                                     Entry
@@ -181,7 +181,7 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                                     value={entry}
                                     onChange={(e) => setEntry(e.target.value)}
                                     placeholder="0.00"
-                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono outline-none transition-all focus:border-ethos-teal focus:ring-2 focus:ring-ethos-teal/20"
+                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono text-base outline-none transition-all focus:border-ethos-teal focus:ring-2 focus:ring-ethos-teal/20"
                                     required
                                 />
                             </div>
@@ -196,7 +196,7 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                                     value={target}
                                     onChange={(e) => setTarget(e.target.value)}
                                     placeholder="0.00"
-                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono outline-none transition-all focus:border-ethos-green focus:ring-2 focus:ring-ethos-green/20"
+                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono text-base outline-none transition-all focus:border-ethos-green focus:ring-2 focus:ring-ethos-green/20"
                                     required
                                 />
                             </div>
@@ -211,13 +211,13 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                                     value={stopLoss}
                                     onChange={(e) => setStopLoss(e.target.value)}
                                     placeholder="0.00"
-                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono outline-none transition-all focus:border-ethos-red focus:ring-2 focus:ring-ethos-red/20"
+                                    className="w-full rounded-lg border border-border bg-secondary px-3 py-2.5 font-mono text-base outline-none transition-all focus:border-ethos-red focus:ring-2 focus:ring-ethos-red/20"
                                 />
                             </div>
                         </div>
 
                         {entry && target && (
-                            <div className="mb-4 flex gap-4 rounded-lg bg-secondary p-3">
+                            <div className="mb-4 flex flex-wrap gap-3 rounded-lg bg-secondary p-3 sm:gap-4">
                                 <div>
                                     <span className="text-xs text-muted-foreground">Potential P&L</span>
                                     <p className={cn('font-mono font-semibold', potentialPnL >= 0 ? 'text-ethos-green' : 'text-ethos-red')}>
@@ -244,7 +244,7 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                                 <Clock className="h-3 w-3" />
                                 Timeframe
                             </label>
-                            <div className="grid grid-cols-4 gap-2">
+                            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                                 {TIMEFRAMES.map((tf) => (
                                     <button
                                         key={tf.value}
@@ -263,14 +263,14 @@ export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore
                             </div>
                         </div>
 
-                        <div className="mb-6">
+                        <div className="mb-4 sm:mb-6">
                             <label className="mb-2 block text-sm font-medium">Reasoning</label>
                             <textarea
                                 value={reasoning}
                                 onChange={(e) => setReasoning(e.target.value)}
                                 placeholder="Explain your thesis... (technical analysis, fundamentals, catalysts)"
                                 rows={3}
-                                className="w-full resize-none rounded-lg border border-border bg-secondary px-4 py-2.5 outline-none transition-all focus:border-ethos-teal focus:ring-2 focus:ring-ethos-teal/20"
+                                className="w-full resize-none rounded-lg border border-border bg-secondary px-4 py-2.5 text-base outline-none transition-all focus:border-ethos-teal focus:ring-2 focus:ring-ethos-teal/20"
                                 required
                             />
                         </div>

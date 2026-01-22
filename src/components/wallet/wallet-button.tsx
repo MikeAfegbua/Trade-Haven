@@ -20,7 +20,7 @@ export function WalletButton() {
             <>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="flex items-center gap-2 rounded-lg bg-ethos-teal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ethos-teal-dark"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg bg-ethos-teal px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-ethos-teal-dark sm:w-auto"
                 >
                     <Wallet className="h-4 w-4" />
                     Connect

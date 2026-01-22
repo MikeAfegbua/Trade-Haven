@@ -86,35 +86,35 @@ export function SignalFeed() {
                 </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-                <div className="rounded-xl border border-border bg-card p-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
                     <div className="flex items-center gap-2">
                         <TrendingUp className="h-5 w-5 text-ethos-teal" />
-                        <span className="text-2xl font-bold">{activeCount}</span>
+                        <span className="text-xl font-bold sm:text-2xl">{activeCount}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Active Signals</p>
+                    <p className="text-xs text-muted-foreground sm:text-sm">Active Signals</p>
                 </div>
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
                     <div className="flex items-center gap-2">
                         <Shield className="h-5 w-5 text-ethos-green" />
-                        <span className="text-2xl font-bold">{verifiedCount}</span>
+                        <span className="text-xl font-bold sm:text-2xl">{verifiedCount}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Verified Traders</p>
+                    <p className="text-xs text-muted-foreground sm:text-sm">Verified Traders</p>
                 </div>
-                <div className="rounded-xl border border-border bg-card p-4">
+                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
                     <div className="flex items-center gap-2">
                         <Zap className="h-5 w-5 text-ethos-yellow" />
-                        <span className="text-2xl font-bold">
+                        <span className="text-xl font-bold sm:text-2xl">
                             {signals.filter(s => s.status === 'hit').length}
                         </span>
                     </div>
-                    <p className="text-sm text-muted-foreground">Signals Hit</p>
+                    <p className="text-xs text-muted-foreground sm:text-sm">Signals Hit</p>
                 </div>
             </div>
 
             <SignalFilters />
 
-            <div className="grid gap-4 md:grid-cols-2 auto-rows-fr">
+            <div className="grid gap-4 auto-rows-fr sm:grid-cols-1 md:grid-cols-2">
                 {filteredAndSortedSignals.map((signal) => (
                     <SignalCard
                         key={signal.id}

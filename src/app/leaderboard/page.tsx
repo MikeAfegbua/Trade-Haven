@@ -75,210 +75,212 @@ export default function LeaderboardPage() {
                 </p>
             </div>
 
-            <div className="mb-8 rounded-xl border border-ethos-teal/30 bg-gradient-to-r from-ethos-teal/10 to-transparent p-6">
-                <div className="flex items-center gap-6">
-                    <div className="relative">
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-ethos-teal/20 text-3xl font-bold">
+            <div className="mb-8 rounded-xl border border-ethos-teal/30 bg-gradient-to-r from-ethos-teal/10 to-transparent p-4 sm:p-6">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                    <div className="relative mx-auto sm:mx-0">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-ethos-teal/20 text-2xl font-bold sm:h-20 sm:w-20 sm:text-3xl">
                             {topTrader.username[0]}
                         </div>
-                        <div className="absolute -bottom-1 -right-1 rounded-full bg-yellow-500 p-1.5">
-                            <Trophy className="h-4 w-4 text-yellow-900" />
+                        <div className="absolute -bottom-1 -right-1 rounded-full bg-yellow-500 p-1 sm:p-1.5">
+                            <Trophy className="h-3 w-3 text-yellow-900 sm:h-4 sm:w-4" />
                         </div>
                     </div>
-                    <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                            <h2 className="text-2xl font-bold">{topTrader.username}</h2>
-                            {topTrader.isVerified && <CheckCircle className="h-5 w-5 text-ethos-teal" />}
-                            <Flame className="h-5 w-5 text-orange-500" />
+                    <div className="flex-1 text-center sm:text-left">
+                        <div className="flex items-center justify-center gap-2 sm:justify-start">
+                            <h2 className="text-xl font-bold sm:text-2xl">{topTrader.username}</h2>
+                            {topTrader.isVerified && <CheckCircle className="h-4 w-4 text-ethos-teal sm:h-5 sm:w-5" />}
+                            <Flame className="h-4 w-4 text-orange-500 sm:h-5 sm:w-5" />
                         </div>
                         <p className="text-muted-foreground">{formatAddress(topTrader.address)}</p>
                     </div>
-                    <div className="grid grid-cols-4 gap-8 text-center">
+                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-8 text-center">
                         <div>
-                            <p className="font-mono text-3xl font-bold text-ethos-teal">{topTrader.traderScore}</p>
-                            <p className="text-sm text-muted-foreground">Trader Score</p>
+                            <p className="font-mono text-xl font-bold text-ethos-teal sm:text-3xl">{topTrader.traderScore}</p>
+                            <p className="text-xs text-muted-foreground sm:text-sm">Trader Score</p>
                         </div>
                         <div>
-                            <p className="font-mono text-3xl font-bold">{topTrader.ethosScore}</p>
-                            <p className="text-sm text-muted-foreground">Ethos Score</p>
+                            <p className="font-mono text-xl font-bold sm:text-3xl">{topTrader.ethosScore}</p>
+                            <p className="text-xs text-muted-foreground sm:text-sm">Ethos Score</p>
                         </div>
                         <div>
-                            <p className="font-mono text-3xl font-bold text-ethos-green">{topTrader.winRate}%</p>
-                            <p className="text-sm text-muted-foreground">Win Rate</p>
+                            <p className="font-mono text-xl font-bold text-ethos-green sm:text-3xl">{topTrader.winRate}%</p>
+                            <p className="text-xs text-muted-foreground sm:text-sm">Win Rate</p>
                         </div>
                         <div>
-                            <p className="font-mono text-3xl font-bold text-ethos-green">+{topTrader.avgReturn}%</p>
-                            <p className="text-sm text-muted-foreground">Avg Return</p>
+                            <p className="font-mono text-xl font-bold text-ethos-green sm:text-3xl">+{topTrader.avgReturn}%</p>
+                            <p className="text-xs text-muted-foreground sm:text-sm">Avg Return</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-border">
-                <table className="w-full">
-                    <thead className="bg-secondary">
-                        <tr>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">Rank</th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">Trader</th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">
-                                <div className="flex items-center gap-1">
-                                    <Flame className="h-4 w-4 text-ethos-teal" />
-                                    Trader Score
-                                </div>
-                            </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">Ethos Score</th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">
-                                <div className="flex items-center gap-1">
-                                    <Target className="h-4 w-4" />
-                                    Win Rate
-                                </div>
-                            </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">Signals</th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold">
-                                <div className="flex items-center gap-1">
-                                    <TrendingUp className="h-4 w-4" />
-                                    Avg Return
-                                </div>
-                            </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold"></th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                        {MOCK_LEADERBOARD.map((trader) => (
-                            <tr key={trader.address} className="transition-colors hover:bg-secondary/50">
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        {trader.rank <= 3 ? (
-                                            <div
-                                                className={cn(
-                                                    'flex h-8 w-8 items-center justify-center rounded-full',
-                                                    trader.rank === 1
-                                                        ? 'bg-yellow-500/20 text-yellow-500'
-                                                        : trader.rank === 2
-                                                            ? 'bg-gray-400/20 text-gray-400'
-                                                            : 'bg-amber-600/20 text-amber-600'
-                                                )}
-                                            >
-                                                <Award className="h-4 w-4" />
-                                            </div>
-                                        ) : (
-                                            <span className="flex h-8 w-8 items-center justify-center text-muted-foreground">
-                                                {trader.rank}
-                                            </span>
-                                        )}
+            <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+                <div className="min-w-[800px] overflow-hidden rounded-xl border border-border sm:min-w-0">
+                    <table className="w-full">
+                        <thead className="bg-secondary">
+                            <tr>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">Rank</th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">Trader</th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    <div className="flex items-center gap-1">
+                                        <Flame className="h-4 w-4 text-ethos-teal" />
+                                        Trader Score
                                     </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="relative">
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-lg font-bold">
-                                                {trader.username?.[0]}
-                                            </div>
-                                            {trader.traderScore >= 80 && (
-                                                <div className="absolute -bottom-1 -right-1 rounded-full bg-ethos-teal p-0.5">
-                                                    <Flame className="h-3 w-3 text-white" />
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">Ethos Score</th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    <div className="flex items-center gap-1">
+                                        <Target className="h-4 w-4" />
+                                        Win Rate
+                                    </div>
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">Signals</th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold">
+                                    <div className="flex items-center gap-1">
+                                        <TrendingUp className="h-4 w-4" />
+                                        Avg Return
+                                    </div>
+                                </th>
+                                <th className="px-6 py-4 text-left text-sm font-semibold"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-border">
+                            {MOCK_LEADERBOARD.map((trader) => (
+                                <tr key={trader.address} className="transition-colors hover:bg-secondary/50">
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center gap-2">
+                                            {trader.rank <= 3 ? (
+                                                <div
+                                                    className={cn(
+                                                        'flex h-8 w-8 items-center justify-center rounded-full',
+                                                        trader.rank === 1
+                                                            ? 'bg-yellow-500/20 text-yellow-500'
+                                                            : trader.rank === 2
+                                                                ? 'bg-gray-400/20 text-gray-400'
+                                                                : 'bg-amber-600/20 text-amber-600'
+                                                    )}
+                                                >
+                                                    <Award className="h-4 w-4" />
                                                 </div>
+                                            ) : (
+                                                <span className="flex h-8 w-8 items-center justify-center text-muted-foreground">
+                                                    {trader.rank}
+                                                </span>
                                             )}
                                         </div>
-                                        <div>
-                                            <div className="flex items-center gap-1.5">
-                                                <p className="font-medium">{trader.username}</p>
-                                                {trader.isVerified ? (
-                                                    <CheckCircle className="h-4 w-4 text-ethos-teal" />
-                                                ) : (
-                                                    <AlertTriangle className="h-4 w-4 text-ethos-yellow" />
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="relative">
+                                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-lg font-bold">
+                                                    {trader.username?.[0]}
+                                                </div>
+                                                {trader.traderScore >= 80 && (
+                                                    <div className="absolute -bottom-1 -right-1 rounded-full bg-ethos-teal p-0.5">
+                                                        <Flame className="h-3 w-3 text-white" />
+                                                    </div>
                                                 )}
                                             </div>
-                                            <p className="text-xs text-muted-foreground">
-                                                {formatAddress(trader.address)}
-                                            </p>
+                                            <div>
+                                                <div className="flex items-center gap-1.5">
+                                                    <p className="font-medium">{trader.username}</p>
+                                                    {trader.isVerified ? (
+                                                        <CheckCircle className="h-4 w-4 text-ethos-teal" />
+                                                    ) : (
+                                                        <AlertTriangle className="h-4 w-4 text-ethos-yellow" />
+                                                    )}
+                                                </div>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {formatAddress(trader.address)}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <div className="flex items-center gap-2">
-                                        <div className="h-2 w-16 overflow-hidden rounded-full bg-secondary">
-                                            <div
-                                                className={cn(
-                                                    'h-full rounded-full',
-                                                    trader.traderScore >= 80
-                                                        ? 'bg-ethos-teal'
-                                                        : trader.traderScore >= 60
-                                                            ? 'bg-ethos-green'
-                                                            : trader.traderScore >= 40
-                                                                ? 'bg-ethos-yellow'
-                                                                : 'bg-ethos-red'
-                                                )}
-                                                style={{ width: `${trader.traderScore}%` }}
-                                            />
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center gap-2">
+                                            <div className="h-2 w-16 overflow-hidden rounded-full bg-secondary">
+                                                <div
+                                                    className={cn(
+                                                        'h-full rounded-full',
+                                                        trader.traderScore >= 80
+                                                            ? 'bg-ethos-teal'
+                                                            : trader.traderScore >= 60
+                                                                ? 'bg-ethos-green'
+                                                                : trader.traderScore >= 40
+                                                                    ? 'bg-ethos-yellow'
+                                                                    : 'bg-ethos-red'
+                                                    )}
+                                                    style={{ width: `${trader.traderScore}%` }}
+                                                />
+                                            </div>
+                                            <span className="font-mono font-bold">{trader.traderScore}</span>
                                         </div>
-                                        <span className="font-mono font-bold">{trader.traderScore}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <EthosScoreBadge
-                                        score={trader.ethosScore}
-                                        address={trader.address}
-                                        showLabel
-                                    />
-                                </td>
-                                <td className="px-6 py-4">
-                                    <span
-                                        className={cn(
-                                            'font-mono',
-                                            trader.winRate >= 60
-                                                ? 'text-ethos-green'
-                                                : trader.winRate >= 50
-                                                    ? 'text-foreground'
-                                                    : 'text-ethos-red'
-                                        )}
-                                    >
-                                        {trader.winRate}%
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 text-muted-foreground">{trader.totalSignals}</td>
-                                <td className="px-6 py-4">
-                                    <span
-                                        className={cn(
-                                            'font-mono',
-                                            trader.avgReturn >= 0 ? 'text-ethos-green' : 'text-ethos-red'
-                                        )}
-                                    >
-                                        {trader.avgReturn >= 0 ? '+' : ''}
-                                        {trader.avgReturn}%
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <a
-                                        href={`https://app.ethos.network/profile/${trader.address}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-muted-foreground transition-colors hover:text-ethos-teal"
-                                    >
-                                        <ExternalLink className="h-4 w-4" />
-                                    </a>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <EthosScoreBadge
+                                            score={trader.ethosScore}
+                                            address={trader.address}
+                                            showLabel
+                                        />
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <span
+                                            className={cn(
+                                                'font-mono',
+                                                trader.winRate >= 60
+                                                    ? 'text-ethos-green'
+                                                    : trader.winRate >= 50
+                                                        ? 'text-foreground'
+                                                        : 'text-ethos-red'
+                                            )}
+                                        >
+                                            {trader.winRate}%
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-muted-foreground">{trader.totalSignals}</td>
+                                    <td className="px-6 py-4">
+                                        <span
+                                            className={cn(
+                                                'font-mono',
+                                                trader.avgReturn >= 0 ? 'text-ethos-green' : 'text-ethos-red'
+                                            )}
+                                        >
+                                            {trader.avgReturn >= 0 ? '+' : ''}
+                                            {trader.avgReturn}%
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <a
+                                            href={`https://app.ethos.network/profile/${trader.address}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-muted-foreground transition-colors hover:text-ethos-teal"
+                                        >
+                                            <ExternalLink className="h-4 w-4" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <div className="mt-8 rounded-xl border border-border bg-secondary/30 p-6">
+            <div className="mt-8 rounded-xl border border-border bg-secondary/30 p-4 sm:p-6">
                 <h3 className="mb-3 font-semibold">How Trader Score Works</h3>
-                <div className="grid gap-4 md:grid-cols-3">
-                    <div className="rounded-lg bg-card p-4">
-                        <p className="mb-1 font-mono text-2xl font-bold text-ethos-teal">40%</p>
+                <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-3">
+                    <div className="rounded-lg bg-card p-3 sm:p-4">
+                        <p className="mb-1 font-mono text-xl font-bold text-ethos-teal sm:text-2xl">40%</p>
                         <p className="text-sm font-medium">Ethos Reputation</p>
                         <p className="text-xs text-muted-foreground">On-chain credibility score from Ethos Network</p>
                     </div>
-                    <div className="rounded-lg bg-card p-4">
-                        <p className="mb-1 font-mono text-2xl font-bold text-ethos-green">50%</p>
+                    <div className="rounded-lg bg-card p-3 sm:p-4">
+                        <p className="mb-1 font-mono text-xl font-bold text-ethos-green sm:text-2xl">50%</p>
                         <p className="text-sm font-medium">Trading Performance</p>
                         <p className="text-xs text-muted-foreground">Win rate and average returns on signals</p>
                     </div>
-                    <div className="rounded-lg bg-card p-4">
-                        <p className="mb-1 font-mono text-2xl font-bold text-muted-foreground">10%</p>
+                    <div className="rounded-lg bg-card p-3 sm:p-4">
+                        <p className="mb-1 font-mono text-xl font-bold text-muted-foreground sm:text-2xl">10%</p>
                         <p className="text-sm font-medium">Experience</p>
                         <p className="text-xs text-muted-foreground">Total signals posted (capped at 100)</p>
                     </div>
