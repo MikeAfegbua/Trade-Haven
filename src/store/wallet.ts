@@ -11,9 +11,10 @@ interface WalletState {
     totalSignals: number;
     connect: (address: string) => void;
     disconnect: () => void;
+    incrementTotalSignals: () => void;
 }
 
-const MOCK_WALLETS: Record<string, Omit<WalletState, 'isConnected' | 'connect' | 'disconnect'>> = {
+const MOCK_WALLETS: Record<string, Omit<WalletState, 'isConnected' | 'connect' | 'disconnect' | 'incrementTotalSignals'>> = {
     '0xfedcba9876543210fedcba9876543210fedcba98': {
         address: '0xfedcba9876543210fedcba9876543210fedcba98',
         username: 'powellruggedme',
@@ -93,6 +94,9 @@ export const useWalletStore = create<WalletState>()(
                     winRate: 0,
                     totalSignals: 0,
                 });
+            },
+            incrementTotalSignals: () => {
+                set((state) => ({ totalSignals: state.totalSignals + 1 }));
             },
         }),
         {

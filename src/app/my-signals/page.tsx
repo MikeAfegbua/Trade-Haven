@@ -11,7 +11,7 @@ import { Signal, CreateSignalInput } from '@/types';
 export default function MySignalsPage() {
     const router = useRouter();
     const { signals, addSignal } = useSignalsStore();
-    const { isConnected, address, username, ethosScore, traderScore, winRate, totalSignals } = useWalletStore();
+    const { isConnected, address, username, ethosScore, traderScore, winRate, totalSignals, incrementTotalSignals } = useWalletStore();
     const [mounted, setMounted] = useState(false);
     const [mySignals, setMySignals] = useState<Signal[]>([]);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -168,6 +168,7 @@ export default function MySignalsPage() {
                         votes: { up: 0, down: 0 },
                     };
                     addSignal(newSignal);
+                    incrementTotalSignals();
                     setIsCreateModalOpen(false);
                 }}
             />
