@@ -5,17 +5,14 @@ import { SignalCard } from './signal-card';
 import { SignalFilters } from './signal-filters';
 import { CreateSignalModal } from './create-signal-modal';
 import { useSignalsStore } from '@/store/signals';
+import { useWalletStore } from '@/store/wallet';
 import { getSignals } from '@/lib/signals';
 import { Loader2, Plus, TrendingUp, Shield, Zap } from 'lucide-react';
 import { CreateSignalInput } from '@/types';
 
-const MOCK_USER = {
-    address: '0x1234567890abcdef1234567890abcdef12345678',
-    ethosScore: 1520,
-};
-
 export function SignalFeed() {
     const { signals, filter, sort, isLoading, setSignals, setLoading } = useSignalsStore();
+    const { isConnected, ethosScore } = useWalletStore();
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     useEffect(() => {
@@ -57,6 +54,8 @@ export function SignalFeed() {
     const handleCreateSignal = async (input: CreateSignalInput) => {
         console.log('Creating signal:', input);
     };
+
+    const userEthosScore = isConnected ? ethosScore : 0;
 
     if (isLoading) {
         return (
@@ -120,7 +119,6 @@ export function SignalFeed() {
                     <SignalCard
                         key={signal.id}
                         signal={signal}
-                        userEthosScore={MOCK_USER.ethosScore}
                         onEndorse={() => console.log('Endorse', signal.id)}
                     />
                 ))}
@@ -135,8 +133,9 @@ export function SignalFeed() {
             <CreateSignalModal
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
-                userEthosScore={MOCK_USER.ethosScore}
-                userAddress={MOCK_USER.address}
+                isConnected={isConnected}
+                userEthosScore={userEthosScore}
+                userAddress={isConnected ? useWalletStore.getState().address || '' : ''}
                 onSubmit={handleCreateSignal}
             />
         </div>

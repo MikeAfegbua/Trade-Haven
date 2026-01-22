@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { X, AlertTriangle, Lock, TrendingUp, TrendingDown, Clock, Target, ShieldAlert } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { MIN_ETHOS_SCORE_TO_POST, MIN_ETHOS_SCORE_VERIFIED, CreateSignalInput } from '@/types';
+import { MIN_ETHOS_SCORE_VERIFIED, CreateSignalInput } from '@/types';
 import { EthosScoreBadge } from '@/components/ethos';
 
 interface CreateSignalModalProps {
     isOpen: boolean;
     onClose: () => void;
+    isConnected: boolean;
     userEthosScore: number;
     userAddress: string;
     onSubmit: (input: CreateSignalInput) => void;
@@ -23,7 +24,7 @@ const TIMEFRAMES = [
 
 const POPULAR_TOKENS = ['BTC', 'ETH', 'SOL', 'LINK', 'ARB', 'OP', 'AVAX', 'MATIC'];
 
-export function CreateSignalModal({ isOpen, onClose, userEthosScore, userAddress, onSubmit }: CreateSignalModalProps) {
+export function CreateSignalModal({ isOpen, onClose, isConnected, userEthosScore, userAddress, onSubmit }: CreateSignalModalProps) {
     const [direction, setDirection] = useState<'long' | 'short'>('long');
     const [token, setToken] = useState('');
     const [entry, setEntry] = useState('');
@@ -33,7 +34,7 @@ export function CreateSignalModal({ isOpen, onClose, userEthosScore, userAddress
     const [timeframe, setTimeframe] = useState<'1h' | '4h' | '1d' | '1w'>('1d');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const canPost = userEthosScore >= MIN_ETHOS_SCORE_TO_POST;
+    const canPost = isConnected;
     const isVerified = userEthosScore >= MIN_ETHOS_SCORE_VERIFIED;
 
     const potentialPnL = entry && target
@@ -80,25 +81,19 @@ export function CreateSignalModal({ isOpen, onClose, userEthosScore, userAddress
                     </button>
                 </div>
 
-                {!canPost ? (
-                    <div className="rounded-xl border border-ethos-red/20 bg-ethos-red/5 p-6 text-center">
-                        <Lock className="mx-auto mb-4 h-12 w-12 text-ethos-red" />
-                        <h3 className="mb-2 text-lg font-semibold">Reputation Required</h3>
+                {!isConnected ? (
+                    <div className="rounded-xl border border-ethos-teal/20 bg-ethos-teal/5 p-6 text-center">
+                        <Lock className="mx-auto mb-4 h-12 w-12 text-ethos-teal" />
+                        <h3 className="mb-2 text-lg font-semibold">Connect Wallet</h3>
                         <p className="mb-4 text-muted-foreground">
-                            You need an Ethos score of at least <span className="font-bold text-foreground">{MIN_ETHOS_SCORE_TO_POST}</span> to post signals.
+                            Connect your wallet to post trading signals.
                         </p>
-                        <div className="mb-4 flex items-center justify-center gap-2">
-                            <span className="text-muted-foreground">Your score:</span>
-                            <EthosScoreBadge score={userEthosScore} address={userAddress} showLabel />
-                        </div>
-                        <a
-                            href="https://app.ethos.network"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                        <button
+                            onClick={onClose}
                             className="inline-block rounded-lg bg-ethos-teal px-6 py-2 font-medium text-white transition-colors hover:bg-ethos-teal-dark"
                         >
-                            Build Your Reputation →
-                        </a>
+                            Close & Connect Wallet
+                        </button>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
@@ -108,7 +103,7 @@ export function CreateSignalModal({ isOpen, onClose, userEthosScore, userAddress
                                 <div className="text-sm">
                                     <p className="font-medium text-ethos-yellow">Unverified Signal</p>
                                     <p className="text-muted-foreground">
-                                        Reach {MIN_ETHOS_SCORE_VERIFIED} Ethos to get verified status and higher visibility.
+                                        Your signal will have lower visibility. Build your Ethos score to {MIN_ETHOS_SCORE_VERIFIED}+ for verified status.
                                     </p>
                                 </div>
                             </div>

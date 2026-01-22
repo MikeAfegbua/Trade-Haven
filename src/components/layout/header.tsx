@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import { Moon, Sun, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { WalletButton } from '@/components/wallet';
 
 export function Header() {
     const { theme, setTheme } = useTheme();
@@ -58,9 +59,7 @@ export function Header() {
                         </button>
                     )}
 
-                    <button className="rounded-lg bg-ethos-teal px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-ethos-teal-dark">
-                        Connect Wallet
-                    </button>
+                    {mounted && <WalletButton />}
                 </nav>
             </div>
         </header>

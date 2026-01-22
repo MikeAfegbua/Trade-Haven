@@ -1,18 +1,18 @@
-import { Signal, MIN_ETHOS_SCORE_TO_ENDORSE } from '@/types';
+import { Signal } from '@/types';
 import { EthosScoreBadge } from '@/components/ethos';
+import { EndorseButton } from './endorse-button';
 import { formatAddress, formatTimestamp } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Target, ShieldAlert, Award, Clock, CheckCircle, AlertTriangle, Flame, Star } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, ShieldAlert, Clock, CheckCircle, AlertTriangle, Flame, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 interface SignalCardProps {
     signal: Signal;
     onEndorse?: () => void;
-    userEthosScore?: number;
     compact?: boolean;
 }
 
-export function SignalCard({ signal, onEndorse, userEthosScore = 0, compact = false }: SignalCardProps) {
+export function SignalCard({ signal, onEndorse, compact = false }: SignalCardProps) {
     const isLong = signal.direction === 'long';
     const potentialPnl = isLong
         ? ((signal.target - signal.entry) / signal.entry) * 100
@@ -27,8 +27,6 @@ export function SignalCard({ signal, onEndorse, userEthosScore = 0, compact = fa
     const timeRemaining = signal.expiresAt - Date.now();
     const hoursRemaining = Math.max(0, Math.floor(timeRemaining / 3600000));
     const isExpiringSoon = timeRemaining > 0 && timeRemaining < 3600000;
-
-    const canEndorse = userEthosScore >= MIN_ETHOS_SCORE_TO_ENDORSE;
 
     return (
         <Link href={`/signal/${signal.id}`} className="block">
@@ -151,7 +149,7 @@ export function SignalCard({ signal, onEndorse, userEthosScore = 0, compact = fa
                         {signal.endorsements.length > 0 && (
                             <div className="flex items-center gap-1">
                                 <div className="flex -space-x-2">
-                                    {signal.endorsements.slice(0, 3).map((e, i) => (
+                                    {signal.endorsements.slice(0, 3).map((e) => (
                                         <div
                                             key={e.id}
                                             className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-card bg-secondary text-xs font-bold"
@@ -167,15 +165,11 @@ export function SignalCard({ signal, onEndorse, userEthosScore = 0, compact = fa
                             </div>
                         )}
 
-                        {onEndorse && canEndorse && signal.status === 'active' && (
-                            <button
-                                onClick={(e) => { e.preventDefault(); onEndorse(); }}
-                                className="flex items-center gap-1 rounded-lg bg-secondary px-2 py-1 text-xs font-medium transition-colors hover:bg-ethos-teal/20 hover:text-ethos-teal"
-                            >
-                                <Award className="h-3 w-3" />
-                                Endorse
-                            </button>
-                        )}
+                        <EndorseButton
+                            signalId={signal.id}
+                            signalStatus={signal.status}
+                            onEndorse={onEndorse}
+                        />
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">

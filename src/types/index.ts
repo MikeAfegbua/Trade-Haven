@@ -89,6 +89,5 @@ export interface CreateSignalInput {
     timeframe: '1h' | '4h' | '1d' | '1w';
 }
 
-export const MIN_ETHOS_SCORE_TO_POST = 1000;
 export const MIN_ETHOS_SCORE_VERIFIED = 1400;
 export const MIN_ETHOS_SCORE_TO_ENDORSE = 1200;

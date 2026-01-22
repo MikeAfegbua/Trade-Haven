@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { TrendingUp, Shield, Lock, Award, ArrowDown, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Shield, BarChart3, Award, ArrowDown, AlertTriangle } from 'lucide-react';
 
 const features = [
     {
-        icon: Lock,
-        title: 'Ethos-Gated Posting',
-        description: '1,000+ score required to post. Keep the noise out.',
+        icon: BarChart3,
+        title: 'Reputation Ranked',
+        description: 'Anyone can post. Your visibility depends on your Ethos score.',
     },
     {
         icon: TrendingUp,
@@ -15,7 +15,7 @@ const features = [
     {
         icon: Award,
         title: 'Weighted Endorsements',
-        description: 'High-rep users boost signals. Low rep? No one sees you.',
+        description: 'High-rep users boost signals. Low rep? Lower visibility.',
     },
     {
         icon: AlertTriangle,
@@ -25,9 +25,9 @@ const features = [
 ];
 
 const stats = [
-    { value: '1,000+', label: 'Min score to post' },
     { value: '1,400+', label: 'Verified status' },
     { value: '1,200+', label: 'Min to endorse' },
+    { value: '∞', label: 'Anyone can post' },
 ];
 
 export function Hero() {

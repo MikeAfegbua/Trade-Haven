@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Signal, MIN_ETHOS_SCORE_TO_ENDORSE } from '@/types';
+import { Signal } from '@/types';
 import { getSignalById } from '@/lib/signals';
 import { EthosScoreBadge } from '@/components/ethos';
+import { EndorseButton } from '@/components/signals';
 import { formatAddress, formatTimestamp } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import {
@@ -21,14 +22,8 @@ import {
     Award,
     ExternalLink,
     BarChart3,
-    Users,
     Loader2,
 } from 'lucide-react';
-
-const MOCK_USER = {
-    address: '0x1234567890abcdef1234567890abcdef12345678',
-    ethosScore: 1520,
-};
 
 export default function SignalDetailPage() {
     const params = useParams();
@@ -86,8 +81,6 @@ export default function SignalDetailPage() {
 
     const timeRemaining = signal.expiresAt - Date.now();
     const hoursRemaining = Math.max(0, Math.floor(timeRemaining / 3600000));
-
-    const canEndorse = MOCK_USER.ethosScore >= MIN_ETHOS_SCORE_TO_ENDORSE;
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -301,15 +294,11 @@ export default function SignalDetailPage() {
                                 </span>
                             </div>
 
-                            {canEndorse && signal.status === 'active' ? (
-                                <button className="w-full rounded-lg bg-ethos-teal py-2.5 font-medium text-white transition-colors hover:bg-ethos-teal-dark">
-                                    Endorse This Signal
-                                </button>
-                            ) : signal.status === 'active' ? (
-                                <div className="rounded-lg bg-secondary p-3 text-center text-sm text-muted-foreground">
-                                    Need {MIN_ETHOS_SCORE_TO_ENDORSE}+ Ethos to endorse
-                                </div>
-                            ) : null}
+                            <EndorseButton
+                                signalId={signal.id}
+                                signalStatus={signal.status}
+                                variant="full"
+                            />
                         </div>
                     </div>
 
