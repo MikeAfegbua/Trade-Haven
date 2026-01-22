@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Wallet, CheckCircle, AlertTriangle, Flame, ExternalLink } from 'lucide-react';
 import { useWalletStore, AVAILABLE_WALLETS } from '@/store/wallet';
 import { formatAddress } from '@/lib/utils';
@@ -15,8 +16,25 @@ interface ConnectModalProps {
 export function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
     const { connect } = useWalletStore();
     const [isConnecting, setIsConnecting] = useState<string | null>(null);
+    const [mounted, setMounted] = useState(false);
 
-    if (!isOpen) return null;
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
+    if (!isOpen || !mounted) return null;
 
     const handleConnect = async (address: string) => {
         setIsConnecting(address);
@@ -26,97 +44,113 @@ export function ConnectModal({ isOpen, onClose }: ConnectModalProps) {
         onClose();
     };
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center">
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+    const modalContent = (
+        <div
+            className="fixed inset-0 flex items-center justify-center p-4"
+            style={{ zIndex: 9999 }}
+        >
+            <div
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                onClick={onClose}
+                style={{ zIndex: 9999 }}
+            />
 
-            <div className="relative z-10 mx-auto my-8 w-full max-w-md rounded-2xl border border-border bg-card p-4 shadow-xl sm:my-0 sm:p-6">
+            <div
+                className="relative w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-xl max-h-[85vh] flex flex-col"
+                style={{ zIndex: 10000 }}
+            >
                 <button
                     onClick={onClose}
-                    className="absolute right-3 top-3 text-muted-foreground transition-colors hover:text-foreground sm:right-4 sm:top-4"
+                    className="absolute right-3 top-3 z-10 text-muted-foreground transition-colors hover:text-foreground"
                 >
                     <X className="h-5 w-5" />
                 </button>
 
-                <div className="mb-4 text-center sm:mb-6">
-                    <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-ethos-teal/10 sm:h-12 sm:w-12">
-                        <Wallet className="h-5 w-5 text-ethos-teal sm:h-6 sm:w-6" />
+                <div className="shrink-0 p-6 pb-4 text-center">
+                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-ethos-teal/10">
+                        <Wallet className="h-6 w-6 text-ethos-teal" />
                     </div>
-                    <h2 className="text-lg font-bold sm:text-xl">Connect Wallet</h2>
-                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                    <h2 className="text-xl font-bold">Connect Wallet</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">
                         Select a demo wallet to simulate connection
                     </p>
                 </div>
 
-                <div className="space-y-2 overflow-y-auto max-h-[50vh] sm:max-h-70">
-                    {AVAILABLE_WALLETS.map((wallet) => {
-                        const isVerified = wallet.ethosScore >= MIN_ETHOS_SCORE_VERIFIED;
+                <div className="min-h-0 flex-1 overflow-y-auto px-6">
+                    <div className="space-y-3 pb-4">
+                        {AVAILABLE_WALLETS.map((wallet) => {
+                            const isVerified = wallet.ethosScore >= MIN_ETHOS_SCORE_VERIFIED;
 
-                        return (
-                            <button
-                                key={wallet.address}
-                                onClick={() => handleConnect(wallet.address!)}
-                                disabled={isConnecting !== null}
-                                className={cn(
-                                    'flex w-full items-center gap-3 rounded-xl border border-border bg-secondary p-4 text-left transition-all hover:border-ethos-teal/50 hover:bg-secondary/80',
-                                    isConnecting === wallet.address && 'animate-pulse border-ethos-teal'
-                                )}
-                            >
-                                <div className="relative">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-lg font-bold">
-                                        {wallet.username?.[0] || '?'}
-                                    </div>
-                                    {wallet.traderScore >= 80 && (
-                                        <div className="absolute -bottom-1 -right-1 rounded-full bg-ethos-teal p-0.5">
-                                            <Flame className="h-3 w-3 text-white" />
-                                        </div>
+                            return (
+                                <button
+                                    key={wallet.address}
+                                    onClick={() => handleConnect(wallet.address!)}
+                                    disabled={isConnecting !== null}
+                                    className={cn(
+                                        'flex w-full items-center gap-3 rounded-xl border border-border bg-secondary p-4 text-left transition-all hover:border-ethos-teal/50 hover:bg-secondary/80',
+                                        isConnecting === wallet.address && 'animate-pulse border-ethos-teal'
                                     )}
-                                </div>
-
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-2">
-                                        <span className="font-medium">{wallet.username}</span>
-                                        {isVerified ? (
-                                            <CheckCircle className="h-4 w-4 text-ethos-teal" />
-                                        ) : (
-                                            <AlertTriangle className="h-4 w-4 text-ethos-yellow" />
+                                >
+                                    <div className="relative shrink-0">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-lg font-bold">
+                                            {wallet.username?.[0] || '?'}
+                                        </div>
+                                        {wallet.traderScore >= 80 && (
+                                            <div className="absolute -bottom-1 -right-1 rounded-full bg-ethos-teal p-0.5">
+                                                <Flame className="h-3 w-3 text-white" />
+                                            </div>
                                         )}
                                     </div>
-                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                        <span>{formatAddress(wallet.address!)}</span>
-                                        <span>•</span>
-                                        <span>{wallet.winRate}% win rate</span>
+
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-1.5">
+                                            <span className="font-medium truncate">{wallet.username}</span>
+                                            {isVerified ? (
+                                                <CheckCircle className="h-4 w-4 text-ethos-teal shrink-0" />
+                                            ) : (
+                                                <AlertTriangle className="h-4 w-4 text-ethos-yellow shrink-0" />
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                            <span className="truncate">{formatAddress(wallet.address!)}</span>
+                                            <span>•</span>
+                                            <span>{wallet.winRate}% win</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="text-right">
-                                    <p className="font-mono font-bold text-ethos-teal">{wallet.ethosScore}</p>
-                                    <p className="text-xs text-muted-foreground">
-                                        {isVerified ? 'Verified' : 'Unverified'}
-                                    </p>
-                                </div>
-                            </button>
-                        );
-                    })}
+                                    <div className="text-right shrink-0">
+                                        <p className="font-mono font-bold text-ethos-teal">{wallet.ethosScore}</p>
+                                        <p className="text-xs text-muted-foreground">
+                                            {isVerified ? 'Verified' : 'Unverified'}
+                                        </p>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
 
-                <div className="mt-4 rounded-lg bg-secondary/50 p-3">
-                    <p className="text-xs text-muted-foreground">
-                        <strong>Demo Mode:</strong> These are simulated wallets with different Ethos scores.
-                        Higher scores = higher signal visibility.
-                    </p>
-                </div>
+                <div className="shrink-0 p-6 pt-4">
+                    <div className="rounded-lg bg-secondary/50 p-3">
+                        <p className="text-xs text-muted-foreground">
+                            <strong>Demo Mode:</strong> These are simulated wallets with different Ethos scores.
+                            Higher scores = higher signal visibility.
+                        </p>
+                    </div>
 
-                <a
-                    href="https://app.ethos.network"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 flex items-center justify-center gap-2 text-sm text-muted-foreground transition-colors hover:text-ethos-teal"
-                >
-                    Build your Ethos reputation
-                    <ExternalLink className="h-3 w-3" />
-                </a>
+                    <a
+                        href="https://app.ethos.network"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 flex items-center justify-center gap-2 text-sm text-muted-foreground transition-colors hover:text-ethos-teal"
+                    >
+                        Build your Ethos reputation
+                        <ExternalLink className="h-3 w-3" />
+                    </a>
+                </div>
             </div>
         </div>
     );
+
+    return createPortal(modalContent, document.body);
 }
