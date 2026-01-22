@@ -1,7 +1,7 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { Moon, Sun, TrendingUp, User } from 'lucide-react';
+import { Moon, Sun, TrendingUp, User, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { WalletButton } from '@/components/wallet';
@@ -52,9 +52,10 @@ export function Header() {
                         href="https://app.ethos.network/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                        className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        View Reputation ↗
+                        View Reputation
+                        <ExternalLink className="h-3.5 w-3.5" />
                     </a>
 
                     {mounted && (

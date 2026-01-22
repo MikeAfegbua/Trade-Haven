@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TrendingUp, Shield, BarChart3, Award, ArrowDown, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Shield, BarChart3, Award, ArrowDown, AlertTriangle, Trophy } from 'lucide-react';
 
 const features = [
     {
@@ -51,11 +51,15 @@ export function Hero() {
                         <span className="text-ethos-red">Decays</span>
                     </h1>
 
-                    <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
+                    <p className="mx-auto mb-2 max-w-2xl text-lg text-muted-foreground md:text-xl">
                         The first trading signals board with <strong>hard consequences</strong> tied to on-chain reputation.
-                        Win and your visibility grows. Lose and watch your influence fade.
-                        Powered by Ethos.
+                        Win and your visibility grows.
                     </p>
+                    <span>
+                        <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
+                            Powered by Ethos.
+                        </p>
+                    </span>
 
                     <div className="mb-8 flex items-center justify-center gap-6">
                         {stats.map((stat) => (
@@ -75,9 +79,10 @@ export function Hero() {
                         </Link>
                         <Link
                             href="/leaderboard"
-                            className="w-full rounded-lg border border-border bg-secondary px-6 py-3 font-medium transition-colors hover:bg-muted sm:w-auto"
+                            className="flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-secondary px-6 py-3 font-medium transition-colors hover:bg-muted sm:w-auto"
                         >
-                            Leaderboard →
+                            <Trophy className="h-4 w-4" />
+                            Leaderboard
                         </Link>
                     </div>
                 </div>

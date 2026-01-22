@@ -29,13 +29,12 @@ export function SignalCard({ signal, onEndorse, compact = false }: SignalCardPro
     const isExpiringSoon = timeRemaining > 0 && timeRemaining < 3600000;
 
     return (
-        <Link href={`/signal/${signal.id}`} className="block">
+        <Link href={`/signal/${signal.id}`} className="block h-full">
             <div className={cn(
-                'group relative overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-ethos-teal/50 hover:shadow-lg hover:shadow-ethos-teal/5',
-                compact ? 'p-4' : 'p-5',
-                !signal.isVerified && 'border-dashed opacity-80'
+                'group relative h-full overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 ease-out hover:border-ethos-teal/50 hover:shadow-lg hover:shadow-ethos-teal/10 hover:-translate-y-1 hover:scale-[1.02]',
+                compact ? 'p-4' : 'p-5'
             )}>
-                <div className="absolute right-0 top-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full bg-gradient-to-br from-ethos-teal/10 to-transparent" />
+                <div className="absolute right-0 top-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full bg-gradient-to-br from-ethos-teal/10 to-transparent transition-transform duration-300 group-hover:scale-150" />
 
                 <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-3">

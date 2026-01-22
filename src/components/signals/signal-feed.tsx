@@ -114,7 +114,7 @@ export function SignalFeed() {
 
             <SignalFilters />
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 auto-rows-fr">
                 {filteredAndSortedSignals.map((signal) => (
                     <SignalCard
                         key={signal.id}
