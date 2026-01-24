@@ -93,18 +93,42 @@ export function Hero() {
                     </a>
                 </div>
 
-                <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                    {features.map((feature) => (
-                        <div
-                            key={feature.title}
-                            className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-ethos-teal/30"
-                        >
-                            <feature.icon className="mb-3 h-8 w-8 text-ethos-teal" />
-                            <h3 className="mb-1 font-semibold">{feature.title}</h3>
-                            <p className="text-sm text-muted-foreground">{feature.description}</p>
-                        </div>
-                    ))}
+                <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
+                {features.map((feature) => (
+                    <div
+                    key={feature.title}
+                    className="
+                        group
+                        flex h-full flex-col
+                        rounded-2xl
+                        border border-border
+                        bg-card
+                        p-5 sm:p-6
+                        transition-all duration-300
+                        hover:-translate-y-1
+                        hover:border-ethos-teal/40
+                        hover:shadow-lg
+                    "
+                    >
+                    {/* Icon */}
+                    <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg bg-ethos-teal/10">
+                        <feature.icon className="h-6 w-6 text-ethos-teal" />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mb-2 text-sm sm:text-base font-semibold tracking-tighter">
+                        {feature.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground flex-grow tracking-tight">
+                        {feature.description}
+                    </p>
+                    </div>
+                ))}
                 </div>
+
+
             </div>
         </section>
     );

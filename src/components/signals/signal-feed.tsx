@@ -86,31 +86,43 @@ export function SignalFeed() {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
-                    <div className="flex items-center gap-2">
-                        <TrendingUp className="h-5 w-5 text-ethos-teal" />
-                        <span className="text-xl font-bold sm:text-2xl">{activeCount}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground sm:text-sm">Active Signals</p>
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
+            {/* Card */}
+            <div className="rounded-xl border border-border bg-card p-2.5 sm:p-4 text-center">
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-ethos-teal" />
+                <span className="text-lg sm:text-2xl font-bold">{activeCount}</span>
                 </div>
-                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
-                    <div className="flex items-center gap-2">
-                        <Shield className="h-5 w-5 text-ethos-green" />
-                        <span className="text-xl font-bold sm:text-2xl">{verifiedCount}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground sm:text-sm">Verified Traders</p>
-                </div>
-                <div className="rounded-xl border border-border bg-card p-3 sm:p-4">
-                    <div className="flex items-center gap-2">
-                        <Zap className="h-5 w-5 text-ethos-yellow" />
-                        <span className="text-xl font-bold sm:text-2xl">
-                            {signals.filter(s => s.status === 'hit').length}
-                        </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground sm:text-sm">Signals Hit</p>
-                </div>
+                <p className="mt-1 text-[10px] sm:text-sm text-muted-foreground leading-tight">
+                Active Signals
+                </p>
             </div>
+
+            {/* Card */}
+            <div className="rounded-xl border border-border bg-card p-2.5 sm:p-4 text-center">
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-ethos-green" />
+                <span className="text-lg sm:text-2xl font-bold">{verifiedCount}</span>
+                </div>
+                <p className="mt-1 text-[10px] sm:text-sm text-muted-foreground leading-tight">
+                Verified Traders
+                </p>
+            </div>
+
+            {/* Card */}
+            <div className="rounded-xl border border-border bg-card p-2.5 sm:p-4 text-center">
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-ethos-yellow" />
+                <span className="text-lg sm:text-2xl font-bold">
+                    {signals.filter(s => s.status === "hit").length}
+                </span>
+                </div>
+                <p className="mt-1 text-[10px] sm:text-sm text-muted-foreground leading-tight">
+                Signals Hit
+                </p>
+            </div>
+            </div>
+
 
             <SignalFilters />
 

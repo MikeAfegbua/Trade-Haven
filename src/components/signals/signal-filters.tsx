@@ -26,23 +26,24 @@ export function SignalFilters() {
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <div className="flex items-center gap-2">
                 <Filter className="hidden h-4 w-4 shrink-0 text-muted-foreground sm:block" />
-                <div className="flex w-full overflow-x-auto rounded-lg border border-border bg-secondary p-1 sm:w-auto">
-                    {filters.map((f) => (
-                        <button
-                            key={f.value}
-                            onClick={() => setFilter(f.value)}
-                            className={cn(
-                                'flex shrink-0 items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
-                                filter === f.value
-                                    ? 'bg-ethos-teal text-black'
-                                    : 'text-muted-foreground hover:text-foreground'
-                            )}
-                        >
-                            {f.value === 'verified' && <CheckCircle className="h-3 w-3" />}
-                            {f.label}
-                        </button>
-                    ))}
+                <div className="flex w-full justify-between gap-1 overflow-x-auto rounded-lg border border-border bg-secondary p-1 sm:w-auto sm:justify-start">
+                {filters.map((f) => (
+                    <button
+                    key={f.value}
+                    onClick={() => setFilter(f.value)}
+                    className={cn(
+                        'flex flex-1 sm:flex-none items-center justify-center gap-1 rounded-md px-2.5 py-1.5 text-xs sm:px-3 sm:text-sm font-medium transition-colors',
+                        filter === f.value
+                        ? 'bg-ethos-teal text-black'
+                        : 'text-muted-foreground hover:text-foreground'
+                    )}
+                    >
+                    {f.value === 'verified' && <CheckCircle className="h-3 w-3" />}
+                    {f.label}
+                    </button>
+                ))}
                 </div>
+
             </div>
 
             <div className="flex items-center gap-2">
